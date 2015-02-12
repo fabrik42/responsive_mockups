@@ -1,0 +1,8 @@
+{
+  "name": "responsive_mockups",
+  "version": "0.0.1",
+  "description": "Takes screenshots of a webpage in different resolutions and automatically applies it to mockups.",
+  "main": "index.js",
+  "author": "Christian Bäuerlein",
+  "license": "MIT"
+}
