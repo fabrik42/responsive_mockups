@@ -10,7 +10,7 @@ mockup.create({
 });
 ```
 
-Example output for `url: 'https://example.org'`
+Example output for `url: 'https://flinc.org'`
 
 ![mockup 1](https://i.imgur.com/IUEHBcI.png)
 ![mockup 2](https://i.imgur.com/kolyLwL.png)
