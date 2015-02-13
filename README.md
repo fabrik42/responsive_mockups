@@ -2,16 +2,6 @@
 
 Small PhantomJS based script that allows you to automatically create mockup graphics, providing only a URL.
 
-```javascript
-mockup.create({
-  url: 'http://example.org',
-  template: 'flat_responsive', // available: 'flat_responsive', 'flat_responsive_2'
-  output: 'responsive_mockup.png'
-});
-```
-
-Example output for `url: 'https://flinc.org'`
-
 ![mockup 1](https://i.imgur.com/IUEHBcI.png)
 ![mockup 2](https://i.imgur.com/kolyLwL.png)
 
