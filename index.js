@@ -79,9 +79,9 @@ function create(options) {
     }
   }
 
-  //metadata.layers.forEach(function(layer) {
-  //  tasks.push(function() { takeScreenshot(url, screenshotsDir, layer, next); });
-  //});
+  metadata.layers.forEach(function(layer) {
+    tasks.push(function() { takeScreenshot(url, screenshotsDir, layer, next); });
+  });
 
   tasks.push(function() { renderMockup(mockupPath, output, metadata); });
 
