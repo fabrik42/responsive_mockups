@@ -1,56 +1,58 @@
-var webpage = require('webpage');
+var easyimg = require('easyimage');
+var webdriverio = require('webdriverio');
 
 function takeScreenshot(url, screenshotsDir, layer, done) {
-  var page = webpage.create();
+
+  layer.client = layer.client || { desiredCapabilities: {browserName: 'phantomjs'}};
+
+  var client = webdriverio.remote(layer.client).init();
+
+  if (layer.client.desiredCapabilities && layer.client.desiredCapabilities.chromeOptions && layer.client.desiredCapabilities.chromeOptions.mobileEmulation) {
+    // Can't set dimensions when mobileEmulation is set
+  } else {
+    client.setViewportSize({
+      width: layer.viewport.width,
+      height: layer.viewport.height
+    });
+  }
 
   var output = screenshotsDir + '/' + layer.type + '.png';
 
-  page.viewportSize = { width: layer.viewport.width, height: layer.viewport.height };
-  page.clipRect = { top: 0, left: 0, width: page.viewportSize.width, height: page.viewportSize.height };
-
   console.info('Now loading: layer '  + layer.type + '...');
 
-  page.open(url, function(status) {
-    if (status !== 'success') console.error('Unable to load the address for layer ' + layer.type);
-
-    window.setTimeout(function() {
+  client.url(url)
+    .pause(5000) // TODO: Find better way to ensure page is loaded
+    .saveScreenshot(output, function () {
       console.info('Generated: ' + output);
-      page.render(output);
+      easyimg.crop({ // Because Chrome is rendering even whitespace around mobile emulator
+        src: output, dst: output, x: 0, y: 0, gravity: 'NorthWest',
+        cropwidth: layer.viewport.width, cropheight: layer.viewport.height
+      });
       done();
-    }, 1000);
+      //client.end(); // Not sure about this
+    });
 
-  });
 }
 
 function renderMockup(path, output, metadata) {
-  var page = webpage.create();
 
-  page.viewportSize = {
+  var client = webdriverio.remote({
+    desiredCapabilities: {browserName: 'phantomjs'}
+  }).init();
+
+  client.setViewportSize({
     width: metadata.mockup.width,
     height: metadata.mockup.height
-  };
-
-  page.clipRect = {
-    top: 0,
-    left: 0,
-    width: metadata.mockup.width,
-    height: metadata.mockup.height
-  };
-
-  page.open(path, function(status) {
-    if (status !== 'success') console.error('Unable to load mockup!');
-
-    page.onConsoleMessage = function(msg) {
-      console.warn('[render] ' + msg);
-    };
-
-    window.setTimeout(function() {
-      console.info('Saved responsive mockup to: ' + output);
-      page.render(output);
-      phantom.exit();
-    }, 500);
-
   });
+
+  client.url(path)
+    .pause(1000)
+    .saveScreenshot(output, function () {
+      console.info('Saved responsive mockup to: ' + output);
+      client.end(function () {
+        console.info("Done");
+      });
+    });
 }
 
 function create(options) {
@@ -77,9 +79,9 @@ function create(options) {
     }
   }
 
-  metadata.layers.forEach(function(layer) {
-    tasks.push(function() { takeScreenshot(url, screenshotsDir, layer, next); });
-  });
+  //metadata.layers.forEach(function(layer) {
+  //  tasks.push(function() { takeScreenshot(url, screenshotsDir, layer, next); });
+  //});
 
   tasks.push(function() { renderMockup(mockupPath, output, metadata); });
 
