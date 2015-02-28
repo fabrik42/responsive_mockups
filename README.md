@@ -30,11 +30,11 @@ At the moment this script includes two mockup templates of pixeden.com:
 
 The awesome people at pixeden.com gave me permission to even include the PSD files so you can tweak the mockups to fit your needs. :heart:
 
-## How can I customize the templates
+## How can I customize the templates?
 
-For now, mockups are based on two files: a PSD that's the graphical template and a metadata js file that contains information which resolutions to take for the screenshots and where to place them in the mockup. Based on the PSD, there are also exported "layers" that will be used to render the mockup.
+For now, mockups are based on two files: a PSD (that's the graphical template) and a `metadata.js` JavaScript file that contains information which resolutions to take for the screenshots and where to place them in the mockup. Based on the PSD, there are also exported "layers" that will be used to render the mockup.
 
-Just have a look at the templates in the `/templates` folder, the information in the `metadata.js` file will map to the pixel coordinates in the PSD. 
+Just have a look at the templates in the `/templates` folder, the information in the `metadata.js` file will map to the pixel coordinates in the PSD.
 
 If you move or scale a device in the PSD template, you have to update the pixel coordinates in the `metadata.js` file and you will have to export the layers (mobile.png, tablet.png, desktop.png) again.
 
