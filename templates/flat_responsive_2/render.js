@@ -10,7 +10,7 @@ var ctx = canvas.getContext('2d');
 function drawLayer(options) {
   var img = document.createElement('img');
 
-  img.onload = function () {
+  img.onload = function() {
     ctx.drawImage(img, 0, 0, img.width, img.height);
     tick();
   };
@@ -23,9 +23,9 @@ function drawScreenshot(options) {
   var layerType = options.layer;
   var data = metadata.layers.filter(function(l) { return l.type == layerType; })[0];
 
-  if(!data) throw('No metadata found for layer ' + layerType);
+  if (!data) throw('No metadata found for layer ' + layerType);
 
-  img.onload = function () {
+  img.onload = function() {
     var width = data.bottomRight.x - data.topLeft.x;
     var widthRatio = width / img.width;
     var heightRation = widthRatio; // we keep the ratio in any case

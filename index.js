@@ -55,7 +55,7 @@ function renderMockup(path, output, metadata) {
 
 function create(options) {
   ['output', 'template', 'url'].forEach(function(requiredOption) {
-      if(!options[requiredOption]) throw(requiredOption + ' option missing');
+      if (!options[requiredOption]) throw(requiredOption + ' option missing');
   });
 
   var output = options.output;
