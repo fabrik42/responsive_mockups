@@ -11,7 +11,7 @@ Small PhantomJS based script that allows you to automatically create mockup grap
 * Clone this repo
 * Edit `example.js` to choose mockup template and target url
 * Call `phantomjs example.js` (for an example with a single URL)
-* Call `phantomjs example-mobile-multiple.js` (for an example with a multiple URLs)
+* Call `phantomjs example-mobile-multiple.js` (for an example with multiple URLs)
 
 ## Requirements
 
