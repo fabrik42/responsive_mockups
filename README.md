@@ -4,7 +4,7 @@ Small PhantomJS based script that allows you to automatically create mockup grap
 
 ![mockup 1](https://i.imgur.com/IUEHBcI.png)
 ![mockup 2](https://i.imgur.com/kolyLwL.png)
-![mockup 3](http://imgur.com/fSBrZhD)
+![mockup 3](https://i.imgur.com/fSBrZhD.png)
 
 ## How To
 
