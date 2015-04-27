@@ -1,4 +1,4 @@
-var screenshotDir = '../../screenshots/chrome-fold';
+var screenshotDir = '../../screenshots/' + metadata.mockup.name;
 
 var canvas = document.createElement('canvas');
 canvas.width = metadata.mockup.width;
@@ -47,13 +47,17 @@ function drawScreenshot(options) {
   };
 
   img.src = screenshotDir + '/' + layerType + '.png';
+  console.log(img.src);
 
 }
 
 var tasks = [
   function() { drawLayer({ src: 'template.png' }); },
-  function() { drawScreenshot({ layer: 'desktop' }); }
 ];
+
+metadata.layers.forEach(function(l){
+  tasks.push(function() { drawScreenshot({ layer: l.type }); })
+});
 
 function tick() {
   var task = tasks.shift();

@@ -1,8 +1,9 @@
 (function() {
   var metadata = {
     mockup: {
-      width: 897,
-      height: 468
+      width: 1140,
+      height: 480,
+      name: 'mobile_multiple'
     },
     layers: [
       {
@@ -29,6 +30,66 @@
         bottomRight: {
           x: 376,
           y: 360
+        },
+        viewport: {
+          width: 320,
+          height: 568
+        }
+      },
+      {
+        type: 'mobile3',
+        topLeft: {
+          x: 416,
+          y: 122
+        },
+        bottomRight: {
+          x: 549,
+          y: 359
+        },
+        viewport: {
+          width: 320,
+          height: 568
+        }
+      },
+      {
+        type: 'mobile4',
+        topLeft: {
+          x: 591,
+          y: 122
+        },
+        bottomRight: {
+          x: 724,
+          y: 359
+        },
+        viewport: {
+          width: 320,
+          height: 568
+        }
+      },
+      {
+        type: 'mobile5',
+        topLeft: {
+          x: 766,
+          y: 122
+        },
+        bottomRight: {
+          x: 899,
+          y: 359
+        },
+        viewport: {
+          width: 320,
+          height: 568
+        }
+      },
+      {
+        type: 'mobile6',
+        topLeft: {
+          x: 941,
+          y: 122
+        },
+        bottomRight: {
+          x: 1074,
+          y: 359
         },
         viewport: {
           width: 320,
