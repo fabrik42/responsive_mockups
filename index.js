@@ -77,8 +77,14 @@ function create(options) {
     }
   }
 
-  metadata.layers.forEach(function(layer) {
-    tasks.push(function() { takeScreenshot(url, screenshotsDir, layer, next); });
+  metadata.layers.forEach(function(layer, index) {
+    var newUrl;
+    if (Array.isArray(url)) {
+      newUrl = url[index];
+    } else {
+      newUrl = url;
+    }
+    tasks.push(function() { takeScreenshot(newUrl, screenshotsDir, layer, next); });
   });
 
   tasks.push(function() { renderMockup(mockupPath, output, metadata); });
