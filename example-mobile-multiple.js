@@ -2,10 +2,10 @@ var mockup = require('./index');
 
 mockup.create({
   url: [
-    'https://flinc.org', 
-    'https://flinc.org/drivers', 
-    'https://flinc.org/passengers', 
-    'https://flinc.org/corporate', 
+    'https://flinc.org',
+    'https://flinc.org/drivers',
+    'https://flinc.org/passengers',
+    'https://flinc.org/corporate',
     'https://flinc.org/developers',
     'https://support.flinc.org/hc/en-us/categories/200236098-FAQ'
   ],
