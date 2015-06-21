@@ -4,5 +4,9 @@
   "description": "Takes screenshots of a webpage in different resolutions and automatically applies it to mockups.",
   "main": "index.js",
   "author": "Christian Bäuerlein",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "easyimage": "^1.2.2",
+    "webdriverio": "^2.4.5"
+  }
 }

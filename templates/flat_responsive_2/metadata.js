@@ -7,6 +7,18 @@
     layers: [
       {
         type: 'mobile',
+        client: {
+          host: "localhost",
+          port: 9515,
+          desiredCapabilities: {
+            browserName: 'chrome',
+            chromeOptions: {
+              mobileEmulation: {
+                deviceName: 'Apple iPhone 5'
+              }
+            }
+          }
+        },
         topLeft: {
           x: 445,
           y: 599
@@ -22,6 +34,11 @@
       },
       {
         type: 'tablet',
+        client: {
+          host: "localhost",
+          port: 9515,
+          desiredCapabilities: { browserName: 'chrome' }
+        },
         topLeft: {
           x: 158,
           y: 407
@@ -37,6 +54,11 @@
       },
       {
         type: 'desktop',
+        client: {
+          host: "localhost",
+          port: 9515,
+          desiredCapabilities: { browserName: 'chrome' }
+        },
         topLeft: {
           x: 238,
           y: 222
