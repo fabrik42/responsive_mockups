@@ -23,7 +23,7 @@ Double check the version of PhantomJS
 
 `phantomjs -v`
 
-## Known issues with HTTPs
+## Known issues with SSL
 
 PhantomJS seems to have problems with some SSL certficates. In case you get errors like `Unable to load the address for layer [...]` - you can get a more verbose output by running PhantomJS in debug mode, e.g. `phantomjs --debug=true example.js`.
 
