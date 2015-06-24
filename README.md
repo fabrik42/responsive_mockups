@@ -27,9 +27,9 @@ Double check the version of PhantomJS
 
 PhantomJS seems to have problems with some SSL certficates. In case you get errors like `Unable to load the address for layer [...]` - you can get a more verbose output by running PhantomJS in debug mode, e.g. `phantomjs --debug=true example.js`.
 
-If the output says something like `SSL Error: "The issuer certificate of a locally looked up certificate could not be found"`, but you still want to take screenshots via HTTPS, you can deactivate the SSL using `phantomjs --ignore-ssl-errors=true example.js`.
+If the output says something like `SSL Error: "The issuer certificate of a locally looked up certificate could not be found"`, but you still want to take screenshots via HTTPS, you can deactivate SSL checks using `phantomjs --ignore-ssl-errors=true example.js`.
 
-Please be aware that this disables SSL validations, so don't pass credentials or other data to the script that would require a secure encryption.
+Please be aware that this disables SSL certificate validations, so don't pass credentials or other data to the script that would require a verified secure connection.
 
 ## Credits for provided mockup templates
 
