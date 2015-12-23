@@ -1,6 +1,6 @@
 # Responsive Mockups via PhantomJS 2.0
 
-Small PhantomJS based script that allows you to automatically create mockup graphics, providing only a URL.
+Small Nightmare.js/Electron based script that allows you to automatically create mockup graphics, providing only a URL.
 
 ![mockup 1](https://i.imgur.com/IUEHBcI.png)
 ![mockup 2](https://i.imgur.com/kolyLwL.png)
@@ -8,28 +8,12 @@ Small PhantomJS based script that allows you to automatically create mockup grap
 
 ## How To
 
+* Make sure you have a current node version installed (which supports generators using the harmony flag)
 * Clone this repo
+* `npm install` all dependencies
 * Edit `example.js` to choose mockup template and target url
-* Call `phantomjs example.js` (for an example with a single URL)
-* Or call `phantomjs example-mobile-multiple.js` (for an example with multiple URLs)
-
-## Requirements
-
-The only external requirement is PhantomJS in version >= 2.0.0.
-
-`brew install phantomjs`
-
-Double check the version of PhantomJS
-
-`phantomjs -v`
-
-## Known issues with SSL
-
-PhantomJS seems to have problems with some SSL certficates. In case you get errors like `Unable to load the address for layer [...]` - you can get a more verbose output by running PhantomJS in debug mode, e.g. `phantomjs --debug=true example.js`.
-
-If the output says something like `SSL Error: "The issuer certificate of a locally looked up certificate could not be found"`, but you still want to take screenshots via HTTPS, you can deactivate SSL checks using `phantomjs --ignore-ssl-errors=true example.js`.
-
-Please be aware that this disables SSL certificate validations, so don't pass credentials or other data to the script that would require a verified secure connection.
+* Call `node --harmony example.js` (for an example with a single URL)
+* Or call `node --harmony example-mobile-multiple.js` (for an example with multiple URLs)
 
 ## Credits for provided mockup templates
 

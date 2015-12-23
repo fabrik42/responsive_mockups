@@ -1,8 +1,13 @@
 {
   "name": "responsive_mockups",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Takes screenshots of a webpage in different resolutions and automatically applies it to mockups.",
   "main": "index.js",
   "author": "Christian Bäuerlein",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "mkdirp": "^0.5.1",
+    "nightmare": "^2.1.1",
+    "vo": "^1.0.3"
+  }
 }
