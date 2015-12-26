@@ -1,9 +1,8 @@
 var Nightmare = require('nightmare');
-var vo = require('vo');
 var mkdirp = require('mkdirp');
 
-function *renderInNightmare(options, url, output, clipRect) {
-  yield Nightmare(options)
+function renderInNightmare(options, url, output, clipRect, done) {
+  return Nightmare(options)
     .goto(url)
     .wait(500)
     .evaluate(function () {
@@ -11,35 +10,29 @@ function *renderInNightmare(options, url, output, clipRect) {
     })
     .wait(100)
     .screenshot(output, clipRect)
-    .end();
+    .end(function(err, result) {
+      if (err) throw('Unable to render ' + url + ' to ' + output);
+      console.info('Generated: ' + output);
+      done();
+    });
 }
 
 function takeScreenshot(url, screenshotsDir, layer, done) {
   var output    = screenshotsDir + '/' + layer.type + '.png';
   var options   = { width: layer.viewport.width, height: layer.viewport.height, overlayScrollbars: true };
   var clipRect  = { x: 0, y: 0, width: options.width, height: options.height };
-  var render    = renderInNightmare.bind(null, options, url, output, clipRect);
 
   console.info('Now loading: layer '  + layer.type + '...');
-
-  vo(render)(function(err, result) {
-    if (err) throw('Unable to load the address for layer ' + layer.type);
-    console.info('Generated: ' + output);
-    done();
-  });
+  renderInNightmare(options, url, output, clipRect, done);
 }
 
 function renderMockup(path, output, metadata, done) {
   var url = 'file:///' + path;
   var options  = { width: metadata.mockup.width, height: metadata.mockup.height };
   var clipRect = { width: metadata.mockup.width, height: metadata.mockup.height, x: 0, y: 0 };
-  var render = renderInNightmare.bind(null, options, url, output, clipRect);
 
-  vo(render)(function(err, result) {
-    if (err) throw('Unable to load mockup!');
-    console.info('Saved responsive mockup to: ' + output);
-    done();
-  });
+  console.info('Now loading: mockup...');
+  renderInNightmare(options, url, output, clipRect, done);
 }
 
 function create(options) {

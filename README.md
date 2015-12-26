@@ -8,12 +8,12 @@ Small Nightmare.js/Electron based script that allows you to automatically create
 
 ## How To
 
-* Make sure you have a current node version installed (which supports generators using the harmony flag)
+* Make sure you have a current node version installed
 * Clone this repo
 * `npm install` all dependencies
 * Edit `example.js` to choose mockup template and target url
-* Call `node --harmony example.js` (for an example with a single URL)
-* Or call `node --harmony example-mobile-multiple.js` (for an example with multiple URLs)
+* Call `node example.js` (for an example with a single URL)
+* Or call `node example-mobile-multiple.js` (for an example with multiple URLs)
 
 ## Credits for provided mockup templates
 
