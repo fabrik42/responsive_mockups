@@ -1,61 +1,43 @@
-var webpage = require('webpage');
+var Nightmare = require('nightmare');
+var mkdirp = require('mkdirp');
 
-function takeScreenshot(url, screenshotsDir, layer, done) {
-  var page = webpage.create();
-
-  var output = screenshotsDir + '/' + layer.type + '.png';
-
-  page.viewportSize = { width: layer.viewport.width, height: layer.viewport.height };
-  page.clipRect = { top: 0, left: 0, width: page.viewportSize.width, height: page.viewportSize.height };
-
-  console.info('Now loading: layer '  + layer.type + '...');
-
-  page.open(url, function(status) {
-    if (status !== 'success') console.error('Unable to load the address for layer ' + layer.type);
-
-    window.setTimeout(function() {
+function renderInNightmare(options, url, output, clipRect, done) {
+  return Nightmare(options)
+    .goto(url)
+    .wait(500)
+    .evaluate(function () {
+      document.documentElement.style.overflow = 'hidden'; // hide scrollbars
+    })
+    .wait(100)
+    .screenshot(output, clipRect)
+    .end(function(err, result) {
+      if (err) throw('Unable to render ' + url + ' to ' + output);
       console.info('Generated: ' + output);
-      page.render(output);
       done();
-    }, 1000);
-
-  });
+    });
 }
 
-function renderMockup(path, output, metadata) {
-  var page = webpage.create();
+function takeScreenshot(url, screenshotsDir, layer, done) {
+  var output    = screenshotsDir + '/' + layer.type + '.png';
+  var options   = { width: layer.viewport.width, height: layer.viewport.height, overlayScrollbars: true };
+  var clipRect  = { x: 0, y: 0, width: options.width, height: options.height };
 
-  page.viewportSize = {
-    width: metadata.mockup.width,
-    height: metadata.mockup.height
-  };
+  console.info('Now loading: layer '  + layer.type + '...');
+  renderInNightmare(options, url, output, clipRect, done);
+}
 
-  page.clipRect = {
-    top: 0,
-    left: 0,
-    width: metadata.mockup.width,
-    height: metadata.mockup.height
-  };
+function renderMockup(path, output, metadata, done) {
+  var url = 'file:///' + path;
+  var options  = { width: metadata.mockup.width, height: metadata.mockup.height };
+  var clipRect = { width: metadata.mockup.width, height: metadata.mockup.height, x: 0, y: 0 };
 
-  page.open(path, function(status) {
-    if (status !== 'success') console.error('Unable to load mockup!');
-
-    page.onConsoleMessage = function(msg) {
-      console.warn('[render] ' + msg);
-    };
-
-    window.setTimeout(function() {
-      console.info('Saved responsive mockup to: ' + output);
-      page.render(output);
-      phantom.exit();
-    }, 500);
-
-  });
+  console.info('Now loading: mockup...');
+  renderInNightmare(options, url, output, clipRect, done);
 }
 
 function create(options) {
   ['output', 'template', 'url'].forEach(function(requiredOption) {
-      if (!options[requiredOption]) throw(requiredOption + ' option missing');
+    if (!options[requiredOption]) throw(requiredOption + ' option missing');
   });
 
   var output = options.output;
@@ -63,9 +45,12 @@ function create(options) {
   var url = options.url;
 
   var metadata = require('./templates/' + template + '/metadata');
-  var mockupPath = './templates/' + template + '/render.html';
-  var screenshotsDir = './screenshots/' + template;
+  var mockupPath = __dirname + '/templates/' + template + '/render.html';
+  var screenshotsDir = __dirname + '/screenshots/' + template;
   var tasks = [];
+
+  // assure the screenshots directory exists
+  mkdirp.sync(screenshotsDir);
 
   function next() {
     var task = tasks.shift();
@@ -73,7 +58,7 @@ function create(options) {
     if (task) {
       task();
     } else {
-      phantom.exit();
+      console.info("DONE!");
     }
   }
 
@@ -87,7 +72,7 @@ function create(options) {
     tasks.push(function() { takeScreenshot(newUrl, screenshotsDir, layer, next); });
   });
 
-  tasks.push(function() { renderMockup(mockupPath, output, metadata); });
+  tasks.push(function() { renderMockup(mockupPath, output, metadata, next); });
 
   next();
 }
